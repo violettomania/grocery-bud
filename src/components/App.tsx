@@ -1,3 +1,5 @@
+import Items from './Items';
+
 export default function App() {
   return (
     <section className='section-center'>
@@ -16,29 +18,7 @@ export default function App() {
           </button>
         </div>
       </form>
-      <div className='items'>
-        <div className='single-item'>
-          <input type='checkbox' onChange={() => {}} />
-          <p style={{ textTransform: 'capitalize' }}>stuff</p>
-          <button className='btn remove-btn' type='button'>
-            delete
-          </button>
-        </div>
-        <div className='single-item'>
-          <input type='checkbox' onChange={() => {}} />
-          <p
-            style={{
-              textTransform: 'capitalize',
-              textDecoration: 'line-through',
-            }}
-          >
-            new stuff
-          </p>
-          <button className='btn remove-btn' type='button'>
-            delete
-          </button>
-        </div>
-      </div>
+      <Items />
     </section>
   );
 }
