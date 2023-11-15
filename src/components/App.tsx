@@ -4,6 +4,7 @@ import Items from './Items';
 export default function App() {
   const [item, setItem] = React.useState({ id: 0, text: '' });
   const [items, setItems] = React.useState<SingleItem[]>([]);
+  const [selectedIndexes, setSelectedIndexes] = React.useState<number[]>([]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -11,11 +12,21 @@ export default function App() {
     setItem(item);
   };
 
+  const handleSelectionChange = (id: number) => {
+    setSelectedIndexes([...selectedIndexes, id]);
+  };
+
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log('handleDelete');
     e.stopPropagation();
-    const newItems = items.filter((item) => item.id !== +e.currentTarget.id);
-    setItems(newItems);
+    const newItems =
+      selectedIndexes.length > 0
+        ? items.filter((item) => selectedIndexes.includes(item.id))
+        : items.filter((item) => item.id !== Number(e.currentTarget.id));
+    const reorderedItems = newItems.map((item, index) => ({
+      ...item,
+      id: index + 1,
+    }));
+    setItems(reorderedItems);
   };
 
   return (
@@ -37,7 +48,11 @@ export default function App() {
           </button>
         </div>
       </form>
-      <Items items={items} onDelete={handleDelete} />
+      <Items
+        items={items}
+        onDelete={handleDelete}
+        onSelectionChange={handleSelectionChange}
+      />
     </section>
   );
 }
