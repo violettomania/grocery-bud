@@ -1,20 +1,23 @@
 import Item from './Item';
 
-export default function Items() {
+interface ItemsProps {
+  items: string[];
+}
+
+export default function Items({ items }: ItemsProps) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
+
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+  };
+
   return (
     <div className='items'>
-      <Item
-        handleChange={() => {}}
-        textDecoration=''
-        text='stuff'
-        onDelete={() => {}}
-      />
-      <Item
-        handleChange={() => {}}
-        textDecoration='line-through'
-        text='more stuff'
-        onDelete={() => {}}
-      />
+      {items.map((item, index) => (
+        <Item key={`${item}-${index}`} onDelete={handleDelete}>
+          {item}
+        </Item>
+      ))}
     </div>
   );
 }

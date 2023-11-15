@@ -1,22 +1,21 @@
 import React from 'react';
 
 interface ItemProps {
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  textDecoration: string;
-  text: string;
-  onDelete: () => void;
+  children: string;
+  onDelete: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export default function Item({
-  handleChange,
-  textDecoration,
-  text,
-  onDelete: handleDelete,
-}: ItemProps) {
+export default function Item({ children, onDelete: handleDelete }: ItemProps) {
+  const [textDecoration, setTextDecoration] = React.useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTextDecoration(e.target.checked ? 'line-through' : '');
+  };
+
   return (
     <div className='single-item'>
       <input type='checkbox' onChange={handleChange} />
-      <p style={{ textTransform: 'capitalize', textDecoration }}>{text}</p>
+      <p style={{ textTransform: 'capitalize', textDecoration }}>{children}</p>
       <button className='btn remove-btn' type='button' onClick={handleDelete}>
         delete
       </button>
