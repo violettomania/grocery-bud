@@ -2,13 +2,20 @@ import React from 'react';
 import Items from './Items';
 
 export default function App() {
-  const [item, setItem] = React.useState('');
-  const [items, setItems] = React.useState<string[]>([]);
+  const [item, setItem] = React.useState({ id: 0, text: '' });
+  const [items, setItems] = React.useState<SingleItem[]>([]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setItems([...items, item]);
-    setItem('');
+    setItem(item);
+  };
+
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log('handleDelete');
+    e.stopPropagation();
+    const newItems = items.filter((item) => item.id !== +e.currentTarget.id);
+    setItems(newItems);
   };
 
   return (
@@ -20,15 +27,17 @@ export default function App() {
           <input
             type='text'
             className='form-input'
-            value={item}
-            onChange={(e) => setItem(e.target.value)}
+            value={item.text}
+            onChange={(e) =>
+              setItem({ id: items.length + 1, text: e.target.value })
+            }
           />
           <button type='submit' className='btn'>
             add item
           </button>
         </div>
       </form>
-      <Items items={items} />
+      <Items items={items} onDelete={handleDelete} />
     </section>
   );
 }
