@@ -1,6 +1,11 @@
 import React from 'react';
-import Items from './Items';
+import Item from './Item';
 import { v4 as uuidv4 } from 'uuid';
+
+interface SingleItem {
+  text: string;
+  id: string;
+}
 
 export default function App() {
   const [currentItem, setCurrentItem] = React.useState({ id: '', text: '' });
@@ -36,7 +41,13 @@ export default function App() {
           </button>
         </div>
       </form>
-      <Items items={items} onDelete={handleDelete} />
+      <div className='items'>
+        {items.map((item) => (
+          <Item key={item.id} onDelete={handleDelete} id={item.id}>
+            {item.text}
+          </Item>
+        ))}
+      </div>
     </section>
   );
 }
