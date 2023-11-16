@@ -26,7 +26,6 @@ export default function App() {
 
   return (
     <section className='section-center'>
-      <div className='Toastify'></div>
       <form onSubmit={handleSubmit}>
         <h4>grocery bud</h4>
         <div className='form-control'>
