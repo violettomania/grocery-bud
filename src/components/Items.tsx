@@ -2,24 +2,14 @@ import Item from './Item';
 
 interface ItemsProps {
   items: SingleItem[];
-  onDelete: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  onSelectionChange: (id: number) => void;
+  onDelete: (id: string) => void;
 }
 
-export default function Items({
-  items,
-  onDelete: handleDelete,
-  onSelectionChange,
-}: ItemsProps) {
+export default function Items({ items, onDelete: handleDelete }: ItemsProps) {
   return (
     <div className='items'>
-      {items.map((item, index) => (
-        <Item
-          key={`${item}-${index}`}
-          onDelete={handleDelete}
-          onSelectionChange={onSelectionChange}
-          id={item.id}
-        >
+      {items.map((item) => (
+        <Item key={item.id} onDelete={handleDelete} id={item.id}>
           {item.text}
         </Item>
       ))}
