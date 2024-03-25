@@ -27,7 +27,7 @@ export default function App() {
   return (
     <section className='section-center'>
       <form onSubmit={handleSubmit}>
-        <h4>grocery bud</h4>
+        <h4>ye olde to-do list</h4>
         <div className='form-control'>
           <input
             type='text'
