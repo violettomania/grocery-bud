@@ -1,8 +1,5 @@
 import React from 'react';
 
-import { ErrorBoundary } from 'react-error-boundary';
-import ErrorFallback from '@/components/ErrorFallback';
-
 interface ItemProps {
   children: string;
   onDelete: (id: string) => void;
@@ -21,20 +18,16 @@ export default function Item({
   };
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <div className='single-item'>
-        <input type='checkbox' onChange={handleChange} id={id.toString()} />
-        <p style={{ textTransform: 'capitalize', textDecoration }}>
-          {children}
-        </p>
-        <button
-          className='btn remove-btn'
-          type='button'
-          onClick={() => handleDelete(id)}
-        >
-          delete
-        </button>
-      </div>
-    </ErrorBoundary>
+    <div className='single-item'>
+      <input type='checkbox' onChange={handleChange} id={id.toString()} />
+      <p style={{ textTransform: 'capitalize', textDecoration }}>{children}</p>
+      <button
+        className='btn remove-btn'
+        type='button'
+        onClick={() => handleDelete(id)}
+      >
+        delete
+      </button>
+    </div>
   );
 }
